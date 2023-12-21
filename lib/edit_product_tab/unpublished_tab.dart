@@ -4,7 +4,6 @@ import 'package:flutter_slidable/flutter_slidable.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:smart_vendor/global_service/global_sevice.dart';
 
-import '../widgets/dialog.dart';
 
 class UnpublishedTab extends StatelessWidget {
   const UnpublishedTab({super.key});
@@ -90,19 +89,10 @@ class UnpublishedTab extends StatelessWidget {
                         SlidableAction(
                           flex: 2,
                           onPressed: (context) async {
-                            MyAlertDialog.showMyDialog(
-                                context: context,
-                                title: 'Dalete',
-                                contant: 'Are you sure delete',
-                                tabNo: () {
-                                  Navigator.pop(context);
-                                },
-                                tabYes: () async {
-                                  await firestore
-                                      .collection('products')
-                                      .doc(venderProductData['proId'])
-                                      .delete();
-                                });
+                            await firestore
+                                .collection('products')
+                                .doc(venderProductData['proId'])
+                                .delete();
                           },
                           backgroundColor: Color(0xFFFE4A49),
                           foregroundColor: Colors.white,

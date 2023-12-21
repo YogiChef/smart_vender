@@ -42,7 +42,9 @@ class _ShippingPageState extends State<ShippingPage>
               });
             }),
         if (_chargeShipping == true)
+        
           InputTextfield(
+          
               textInputType: TextInputType.number,
               prefixIcon: const Icon(CupertinoIcons.money_dollar_circle),
               hintText: 'Shipping Charge',
@@ -54,7 +56,7 @@ class _ShippingPageState extends State<ShippingPage>
                 }
               },
               onChanged: (value) {
-                productProvider.getFormData(shippingCharge: int.parse(value));
+                productProvider.getFormData(shippingCharge: double.parse(value));
               })
       ],
     );

@@ -14,7 +14,7 @@ class ProductProvider with ChangeNotifier {
     DateTime? date,
     List<String>? imageUrlList,
     bool? chargeShipping,
-    int? shippingCharge,
+    double? shippingCharge,
     String? brandName,
     List<String>? sizeList,
   }) {

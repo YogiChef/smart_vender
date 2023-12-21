@@ -82,7 +82,11 @@ class _EarningPageState extends State<EarningPage> {
                 }
 
                 if (snapshot.connectionState == ConnectionState.waiting) {
-                  return Text("Loading");
+                  return Center(
+                      child: SizedBox(
+                    width: MediaQuery.of(context).size.width * 0.5,
+                    child: LinearProgressIndicator(color: Colors.green),
+                  ));
                 }
                 double totalOrder = 0.0;
                 for (var orderItem in snapshot.data!.docs) {
@@ -96,6 +100,7 @@ class _EarningPageState extends State<EarningPage> {
                     children: [
                       Container(
                         height: 150,
+                        padding: EdgeInsets.symmetric(vertical: 10),
                         width: MediaQuery.of(context).size.width * 0.7,
                         decoration: BoxDecoration(
                           color: Colors.yellow.shade800,
@@ -129,6 +134,7 @@ class _EarningPageState extends State<EarningPage> {
                       ),
                       Container(
                         height: 150,
+                        padding: EdgeInsets.symmetric(vertical: 20),
                         width: MediaQuery.of(context).size.width * 0.7,
                         decoration: BoxDecoration(
                           color: Colors.blue.shade800,
@@ -168,7 +174,11 @@ class _EarningPageState extends State<EarningPage> {
           );
         }
 
-        return Text("loading");
+        return Center(
+            child: SizedBox(
+          width: MediaQuery.of(context).size.width * 0.5,
+          child: LinearProgressIndicator(color: Colors.green),
+        ));
       },
     );
   }

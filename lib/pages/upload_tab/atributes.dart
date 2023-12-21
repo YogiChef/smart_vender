@@ -96,11 +96,17 @@ class _AtributesPageState extends State<AtributesPage>
                 itemCount: _sizeList.length,
                 itemBuilder: (context, index) {
                   return Padding(
-                    padding: const EdgeInsets.symmetric(horizontal: 5),
-                    child: ElevatedButton(
-                        style: ElevatedButton.styleFrom(
-                          backgroundColor: Colors.yellow.shade700,
-                        ),
+                    padding:
+                        const EdgeInsets.symmetric(vertical: 1, horizontal: 5),
+                    child: OutlinedButton(
+                        style: OutlinedButton.styleFrom(
+                            // minimumSize: Size(70, 35),
+                            backgroundColor: Colors.transparent,
+                            shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(30),
+                            ),
+                            side: BorderSide(
+                                width: 1, color: Colors.yellow.shade900)),
                         onPressed: () {
                           setState(() {
                             _sizeList.removeAt(index);
@@ -109,7 +115,7 @@ class _AtributesPageState extends State<AtributesPage>
                         child: Text(
                           _sizeList[index],
                           style: styles(
-                            fontSize: 16,
+                            fontSize: 14,
                             fontWeight: FontWeight.w500,
                           ),
                         )),

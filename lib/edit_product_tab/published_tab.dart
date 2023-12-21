@@ -4,7 +4,7 @@ import 'package:flutter_slidable/flutter_slidable.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:smart_vendor/edit_product_tab/vendor_product_detail.dart';
 import 'package:smart_vendor/global_service/global_sevice.dart';
-import 'package:smart_vendor/widgets/dialog.dart';
+
 
 class PublishedTab extends StatelessWidget {
   const PublishedTab({super.key});
@@ -25,7 +25,10 @@ class PublishedTab extends StatelessWidget {
           }
 
           if (snapshot.connectionState == ConnectionState.waiting) {
-            return Center(child: CircularProgressIndicator(color: Colors.yellow.shade900,));
+            return Center(
+                child: CircularProgressIndicator(
+              color: Colors.yellow.shade900,
+            ));
           }
           if (snapshot.data!.docs.isEmpty) {
             return Center(
@@ -97,19 +100,10 @@ class PublishedTab extends StatelessWidget {
                         SlidableAction(
                           flex: 2,
                           onPressed: (context) async {
-                            MyAlertDialog.showMyDialog(
-                                context: context,
-                                title: 'Dalete',
-                                contant: 'Are you sure delete',
-                                tabNo: () {
-                                  Navigator.pop(context);
-                                },
-                                tabYes: () async {
-                                  await firestore
-                                      .collection('products')
-                                      .doc(venderProductData['proId'])
-                                      .delete();
-                                });
+                            await firestore
+                                .collection('products')
+                                .doc(venderProductData['proId'])
+                                .delete();
                           },
                           backgroundColor: Color(0xFFFE4A49),
                           foregroundColor: Colors.white,

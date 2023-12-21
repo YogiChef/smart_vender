@@ -36,7 +36,11 @@ class _CartPageState extends State<CartPage> {
           }
 
           if (snapshot.connectionState == ConnectionState.waiting) {
-            return Text("Loading");
+            return Center(
+                child: SizedBox(
+              width: MediaQuery.of(context).size.width * 0.5,
+              child: LinearProgressIndicator(color: Colors.green),
+            ));
           }
 
           return ListView(
@@ -50,48 +54,70 @@ class _CartPageState extends State<CartPage> {
                           borderRadius: BorderRadius.circular(5)),
                       child: Column(
                         children: [
-                          ListTile(
-                            leading: CircleAvatar(
-                              backgroundColor: Colors.grey.shade300,
-                              radius: 14,
-                              child: document['accepted'] == true
-                                  ? Icon(
-                                      Icons.delivery_dining,
-                                      color: Colors.deepOrange,
-                                    )
-                                  : Icon(
-                                      Icons.access_time,
-                                      color: Colors.grey,
+                          Stack(
+                            children: [
+                              ListTile(
+                                leading: CircleAvatar(
+                                  backgroundColor: Colors.grey.shade300,
+                                  radius: 14,
+                                  child: document['accepted'] == true
+                                      ? Icon(
+                                          Icons.delivery_dining,
+                                          color: Colors.green,
+                                        )
+                                      : Icon(
+                                          Icons.access_time,
+                                          color: Colors.red,
+                                        ),
+                                ),
+                                title: document['accepted'] == true
+                                    ? Text(
+                                        'Accepted',
+                                        style: styles(
+                                            fontSize: 16, color: Colors.green),
+                                      )
+                                    : Text(
+                                        'Not Accepted',
+                                        style: styles(
+                                            fontSize: 16, color: Colors.grey),
+                                      ),
+                                subtitle: Text(
+                                  DateFormat('dd/MM/yyyy - hh:mm')
+                                      .format(document['oderDate'].toDate()),
+                                  style: styles(
+                                      fontSize: 14,
+                                      color: document['accepted'] == true
+                                          ? Colors.green
+                                          : Colors.yellow.shade900),
+                                ),
+                                trailing: Text(
+                                  '฿${document['price'] * document['qty'].floor()}',
+                                  style: styles(
+                                      fontSize: 16,
+                                      color: document['accepted'] == true
+                                          ? Colors.green
+                                          : Colors.red),
+                                ),
+                              ),
+                              document['accepted'] == true
+                                  ? SizedBox()
+                                  : Positioned(
+                                      left: 210,
+                                      top: 0,
+                                      child: Image.asset('images/new.png'),
+                                      height: 60,
+                                      width: 80,
                                     ),
-                            ),
-                            title: document['accepted'] == true
-                                ? Text(
-                                    'Accepted',
-                                    style: styles(
-                                        fontSize: 16,
-                                        color: Colors.yellow.shade900),
-                                  )
-                                : Text(
-                                    'Not Accepted',
-                                    style: styles(
-                                        fontSize: 16, color: Colors.grey),
-                                  ),
-                            subtitle: Text(
-                              DateFormat('dd/MM/yyyy - hh:mm')
-                                  .format(document['oderDate'].toDate()),
-                              style: styles(
-                                  fontSize: 14, color: Colors.yellow.shade900),
-                            ),
-                            trailing: Text(
-                              '฿${document['price'] * document['qty'].floor()}',
-                              style: styles(fontSize: 16, color: Colors.red),
-                            ),
+                            ],
                           ),
                           ExpansionTile(
                             title: Text(
                               'Order Datails',
-                              style:
-                                  styles(fontSize: 16, color: Colors.black54),
+                              style: styles(
+                                  fontSize: 16,
+                                  color: document['accepted'] == true
+                                      ? Colors.green
+                                      : Colors.black54),
                             ),
                             // subtitle: Text('View'),
                             children: [
