@@ -2,17 +2,16 @@
 
 import 'package:flutter/material.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
-import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
-import 'package:smart_vendor/pages/upload_tab/atributes.dart';
-import 'package:smart_vendor/pages/upload_tab/general.dart';
-import 'package:smart_vendor/pages/upload_tab/images.dart';
-import 'package:smart_vendor/pages/upload_tab/shipping.dart';
+import 'package:smart_vendor/pages/main_vendor_page.dart';
+import 'package:smart_vendor/pages/nav_pages/tab_bar_upload/atributes_tab.dart';
+import 'package:smart_vendor/pages/nav_pages/tab_bar_upload/general_tab.dart';
+import 'package:smart_vendor/pages/nav_pages/tab_bar_upload/image_tab.dart';
+import 'package:smart_vendor/pages/nav_pages/tab_bar_upload/shipping_tab.dart';
+import 'package:smart_vendor/providers/product_provider.dart';
+import 'package:smart_vendor/services/sevice.dart';
+import 'package:smart_vendor/widgets/button_widget.dart';
 import 'package:uuid/uuid.dart';
-
-import '../global_service/global_sevice.dart';
-import '../providers/product_provider.dart';
-import 'main_vendor.dart';
 
 class UploadPage extends StatefulWidget {
   const UploadPage({super.key});
@@ -34,11 +33,12 @@ class _UploadPageState extends State<UploadPage> {
         child: Scaffold(
           appBar: AppBar(
             backgroundColor: Colors.yellow.shade900,
-            bottom: TabBar(
-                labelStyle: GoogleFonts.righteous(
+            title: TabBar(
+                labelStyle: styles(
                   fontSize: 16,
                   color: Colors.white,
                 ),
+                dividerColor: Colors.transparent,
                 unselectedLabelColor: Colors.yellow,
                 indicatorColor: Colors.white,
                 indicatorWeight: 3,
@@ -64,18 +64,20 @@ class _UploadPageState extends State<UploadPage> {
                 ]),
           ),
           body: const TabBarView(children: [
-            GeneralPage(),
-            ShippingPage(),
-            AtributesPage(),
-            ImagesPage(),
+            GeneralTab(),
+            ShippingTab(),
+            AtributesTab(),
+            ImagesTab(),
           ]),
           bottomSheet: Padding(
             padding: const EdgeInsets.symmetric(horizontal: 20),
-            child: ElevatedButton(
-                style: ElevatedButton.styleFrom(
-                  backgroundColor: Colors.yellow.shade900,
+            child: ButtonWidget(
+                label: 'Save',
+                style: styles(
+                  color: Colors.white,
                 ),
-                onPressed: () async {
+                icon: Icons.save_as_rounded,
+                press: () async {
                   if (_formKey.currentState!.validate()) {
                     EasyLoading.show(status: 'Uploading...');
                     final proId = const Uuid().v4();
@@ -108,14 +110,7 @@ class _UploadPageState extends State<UploadPage> {
                       _formKey.currentState!.reset();
                     });
                   }
-                },
-                child: Text(
-                  'Save',
-                  style: GoogleFonts.righteous(
-                    fontSize: 20,
-                    fontWeight: FontWeight.w500,
-                  ),
-                )),
+                }),
           ),
         ),
       ),

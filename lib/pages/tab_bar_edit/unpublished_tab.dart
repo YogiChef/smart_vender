@@ -1,8 +1,9 @@
+// ignore_for_file: sort_child_properties_last
+
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_slidable/flutter_slidable.dart';
-import 'package:google_fonts/google_fonts.dart';
-import 'package:smart_vendor/global_service/global_sevice.dart';
+import 'package:smart_vendor/services/sevice.dart';
 
 
 class UnpublishedTab extends StatelessWidget {
@@ -20,7 +21,7 @@ class UnpublishedTab extends StatelessWidget {
         stream: _productStream,
         builder: (BuildContext context, AsyncSnapshot<QuerySnapshot> snapshot) {
           if (snapshot.hasError) {
-            return Text('Something went wrong');
+            return const Text('Something went wrong');
           }
 
           if (snapshot.connectionState == ConnectionState.waiting) {
@@ -52,7 +53,7 @@ class UnpublishedTab extends StatelessWidget {
                           horizontal: 12, vertical: 6),
                       child: Row(
                         children: [
-                          Container(
+                          SizedBox(
                             height: 60,
                             width: 80,
                             child: Image.network(
@@ -67,13 +68,11 @@ class UnpublishedTab extends StatelessWidget {
                               children: [
                                 Text(
                                   venderProductData['proName'],
-                                  style: GoogleFonts.righteous(
-                                      fontSize: 16, letterSpacing: 1),
+                                  style: styles(),
                                 ),
                                 Text(
                                   '฿${venderProductData['price'].toStringAsFixed(2)}',
-                                  style: GoogleFonts.righteous(
-                                      fontSize: 16, letterSpacing: 1),
+                                  style: styles(),
                                 )
                               ],
                             ),
@@ -94,7 +93,7 @@ class UnpublishedTab extends StatelessWidget {
                                 .doc(venderProductData['proId'])
                                 .delete();
                           },
-                          backgroundColor: Color(0xFFFE4A49),
+                          backgroundColor: const Color(0xFFFE4A49),
                           foregroundColor: Colors.white,
                           icon: Icons.delete,
                           label: 'Delete',
@@ -107,7 +106,7 @@ class UnpublishedTab extends StatelessWidget {
                                 .doc(venderProductData['proId'])
                                 .update({'approved': true});
                           },
-                          backgroundColor: Color(0xFF21B7CA),
+                          backgroundColor: const Color(0xFF21B7CA),
                           foregroundColor: Colors.white,
                           icon: Icons.approval_outlined,
                           label: 'Publish',

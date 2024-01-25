@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:google_fonts/google_fonts.dart';
+import 'package:smart_vendor/services/sevice.dart';
 
 class InputTextfield extends StatelessWidget {
   const InputTextfield({
@@ -13,9 +13,8 @@ class InputTextfield extends StatelessWidget {
     this.maxLength,
     this.obscureText = false,
     this.controller,
-    this.maxLines,
     this.label,
-    this.initialValue,
+    this.initialValue, 
   }) : super(key: key);
 
   final TextInputType textInputType;
@@ -27,7 +26,6 @@ class InputTextfield extends StatelessWidget {
   final int? maxLength;
   final bool obscureText;
   final TextEditingController? controller;
-  final int? maxLines;
   final Widget? label;
   final String? initialValue;
   @override
@@ -41,15 +39,15 @@ class InputTextfield extends StatelessWidget {
         obscureText: obscureText,
         keyboardType: textInputType,
         maxLength: maxLength,
-        maxLines: maxLines,
         controller: controller,
+        style: styles(fontSize: 12),
         decoration: InputDecoration(
           prefixIcon: prefixIcon,
-          hintText: hintText,
+          hintText: hintText,          
           label: label,
-          labelStyle: GoogleFonts.righteous(fontSize: 20),
+          labelStyle: styles(fontSize: 12),
           suffixIcon: suffixIcon,
-          hintStyle: GoogleFonts.righteous(),
+          hintStyle: styles(fontSize: 12),
           focusedBorder: UnderlineInputBorder(
               borderSide: BorderSide(
             color: Colors.yellow.shade900,

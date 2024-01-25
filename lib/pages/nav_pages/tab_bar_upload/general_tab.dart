@@ -5,18 +5,18 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
 import 'package:intl/intl.dart';
-import '../../global_service/global_sevice.dart';
-import '../../providers/product_provider.dart';
-import '../../widgets/input_textfield.dart';
+import 'package:smart_vendor/providers/product_provider.dart';
+import 'package:smart_vendor/services/sevice.dart';
+import 'package:smart_vendor/widgets/input_textfield.dart';
 
-class GeneralPage extends StatefulWidget {
-  const GeneralPage({super.key});
+class GeneralTab extends StatefulWidget {
+  const GeneralTab({super.key});
 
   @override
-  State<GeneralPage> createState() => _GeneralPageState();
+  State<GeneralTab> createState() => _GeneralTabState();
 }
 
-class _GeneralPageState extends State<GeneralPage>
+class _GeneralTabState extends State<GeneralTab>
     with AutomaticKeepAliveClientMixin {
   @override
   bool get wantKeepAlive => true;
@@ -63,7 +63,7 @@ class _GeneralPageState extends State<GeneralPage>
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: 20),
               child: DropdownButtonFormField(
-                  icon: Icon(Icons.keyboard_arrow_down),
+                  icon: const Icon(Icons.keyboard_arrow_down),
                   decoration: InputDecoration(
                       prefixIcon: const Icon(Icons.category),
                       focusedBorder: UnderlineInputBorder(
@@ -135,7 +135,7 @@ class _GeneralPageState extends State<GeneralPage>
               child: TextFormField(
                   keyboardType: TextInputType.text,
                   maxLength: 400,
-                  maxLines: 5,
+                  maxLines: 3,
                   validator: (value) {
                     if (value!.isEmpty) {
                       return 'Please Enter Product Description';

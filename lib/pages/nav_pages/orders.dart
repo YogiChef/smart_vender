@@ -1,17 +1,19 @@
+// ignore_for_file: sized_box_for_whitespace, sort_child_properties_last
+
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_slidable/flutter_slidable.dart';
 import 'package:intl/intl.dart';
-import 'package:smart_vendor/global_service/global_sevice.dart';
+import 'package:smart_vendor/services/sevice.dart';
 
-class CartPage extends StatefulWidget {
-  const CartPage({super.key});
+class OrderPage extends StatefulWidget {
+  const OrderPage({super.key});
 
   @override
-  State<CartPage> createState() => _CartPageState();
+  State<OrderPage> createState() => _OrderPageState();
 }
 
-class _CartPageState extends State<CartPage> {
+class _OrderPageState extends State<OrderPage> {
   @override
   Widget build(BuildContext context) {
     final Stream<QuerySnapshot> _ordersStream = FirebaseFirestore.instance
@@ -23,7 +25,10 @@ class _CartPageState extends State<CartPage> {
         backgroundColor: Colors.yellow.shade900,
         title: Text(
           'Orders',
-          style: styles(fontSize: 20),
+          style: styles(
+            fontSize: 20,
+            color: Colors.white,
+          ),
         ),
         elevation: 0,
         centerTitle: true,
@@ -32,14 +37,14 @@ class _CartPageState extends State<CartPage> {
         stream: _ordersStream,
         builder: (BuildContext context, AsyncSnapshot<QuerySnapshot> snapshot) {
           if (snapshot.hasError) {
-            return Text('Something went wrong');
+            return const Text('Something went wrong');
           }
 
           if (snapshot.connectionState == ConnectionState.waiting) {
             return Center(
                 child: SizedBox(
               width: MediaQuery.of(context).size.width * 0.5,
-              child: LinearProgressIndicator(color: Colors.green),
+              child: const LinearProgressIndicator(color: Colors.green),
             ));
           }
 
@@ -53,6 +58,7 @@ class _CartPageState extends State<CartPage> {
                           border: Border.all(color: Colors.yellow.shade900),
                           borderRadius: BorderRadius.circular(5)),
                       child: Column(
+                        mainAxisAlignment: MainAxisAlignment.start,
                         children: [
                           Stack(
                             children: [
@@ -61,11 +67,11 @@ class _CartPageState extends State<CartPage> {
                                   backgroundColor: Colors.grey.shade300,
                                   radius: 14,
                                   child: document['accepted'] == true
-                                      ? Icon(
+                                      ? const Icon(
                                           Icons.delivery_dining,
                                           color: Colors.green,
                                         )
-                                      : Icon(
+                                      : const Icon(
                                           Icons.access_time,
                                           color: Colors.red,
                                         ),
@@ -100,9 +106,9 @@ class _CartPageState extends State<CartPage> {
                                 ),
                               ),
                               document['accepted'] == true
-                                  ? SizedBox()
+                                  ? const SizedBox()
                                   : Positioned(
-                                      left: 210,
+                                      left: 200,
                                       top: 0,
                                       child: Image.asset('images/new.png'),
                                       height: 60,
@@ -172,7 +178,7 @@ class _CartPageState extends State<CartPage> {
                                                 fontSize: 14,
                                                 color: Colors.green.shade700),
                                           )
-                                        : Text(''),
+                                        : const Text(''),
                                     ListTile(
                                         title: Text(
                                           'Buyer Details',
@@ -230,7 +236,7 @@ class _CartPageState extends State<CartPage> {
                               .doc(document['orderId'])
                               .update({'accepted': false});
                         },
-                        backgroundColor: Color(0xFFFE4A49),
+                        backgroundColor: const Color(0xFFFE4A49),
                         foregroundColor: Colors.white,
                         icon: Icons.eject_outlined,
                         label: 'Reject',
@@ -243,7 +249,7 @@ class _CartPageState extends State<CartPage> {
                               .doc(document['orderId'])
                               .update({'accepted': true});
                         },
-                        backgroundColor: Color(0xFF21B7CA),
+                        backgroundColor: const Color(0xFF21B7CA),
                         foregroundColor: Colors.white,
                         icon: Icons.approval_outlined,
                         label: 'Accept',

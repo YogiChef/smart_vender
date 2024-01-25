@@ -2,18 +2,18 @@
 
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:smart_vendor/global_service/global_sevice.dart';
-import '../../providers/product_provider.dart';
-import '../../widgets/input_textfield.dart';
+import 'package:smart_vendor/providers/product_provider.dart';
+import 'package:smart_vendor/services/sevice.dart';
+import 'package:smart_vendor/widgets/input_textfield.dart';
 
-class AtributesPage extends StatefulWidget {
-  const AtributesPage({super.key});
+class AtributesTab extends StatefulWidget {
+  const AtributesTab({super.key});
 
   @override
-  State<AtributesPage> createState() => _AtributesPageState();
+  State<AtributesTab> createState() => _AtributesTabState();
 }
 
-class _AtributesPageState extends State<AtributesPage>
+class _AtributesTabState extends State<AtributesTab>
     with AutomaticKeepAliveClientMixin {
   @override
   bool get wantKeepAlive => true;

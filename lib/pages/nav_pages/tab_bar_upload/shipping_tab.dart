@@ -2,18 +2,16 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
-
-import '../../providers/product_provider.dart';
-import '../../widgets/input_textfield.dart';
-
-class ShippingPage extends StatefulWidget {
-  const ShippingPage({super.key});
+import 'package:smart_vendor/providers/product_provider.dart';
+import 'package:smart_vendor/widgets/input_textfield.dart';
+class ShippingTab extends StatefulWidget {
+  const ShippingTab({super.key});
 
   @override
-  State<ShippingPage> createState() => _ShippingPageState();
+  State<ShippingTab> createState() => _ShippingTabState();
 }
 
-class _ShippingPageState extends State<ShippingPage>
+class _ShippingTabState extends State<ShippingTab>
     with AutomaticKeepAliveClientMixin {
   @override
   bool get wantKeepAlive => true;

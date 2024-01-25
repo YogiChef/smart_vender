@@ -1,7 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
-import 'package:smart_vendor/global_service/global_sevice.dart';
-import 'package:smart_vendor/vendors/withdrawal.dart';
+import 'package:smart_vendor/auth/withdrawl_page.dart';
+import 'package:smart_vendor/services/sevice.dart';
 
 class EarningPage extends StatefulWidget {
   const EarningPage({super.key});
@@ -24,11 +24,11 @@ class _EarningPageState extends State<EarningPage> {
       builder:
           (BuildContext context, AsyncSnapshot<DocumentSnapshot> snapshot) {
         if (snapshot.hasError) {
-          return Text("Something went wrong");
+          return const Text("Something went wrong");
         }
 
         if (snapshot.hasData && !snapshot.data!.exists) {
-          return Text("Document does not exist");
+          return const Text("Document does not exist");
         }
 
         if (snapshot.connectionState == ConnectionState.done) {
@@ -51,7 +51,7 @@ class _EarningPageState extends State<EarningPage> {
                         child: Text(
                           'Hi  ${data['bussinessName']}',
                           style: styles(
-                            fontSize: 20,
+                            fontSize: 16,
                             color: Colors.black87,
                           ),
                         ),
@@ -59,7 +59,7 @@ class _EarningPageState extends State<EarningPage> {
                     ],
                   ),
                   IconButton(
-                    icon: Icon(
+                    icon: const Icon(
                       Icons.edit_document,
                       color: Colors.grey,
                     ),
@@ -78,14 +78,14 @@ class _EarningPageState extends State<EarningPage> {
               builder: (BuildContext context,
                   AsyncSnapshot<QuerySnapshot> snapshot) {
                 if (snapshot.hasError) {
-                  return Text('Something went wrong');
+                  return const Text('Something went wrong');
                 }
 
                 if (snapshot.connectionState == ConnectionState.waiting) {
                   return Center(
                       child: SizedBox(
                     width: MediaQuery.of(context).size.width * 0.5,
-                    child: LinearProgressIndicator(color: Colors.green),
+                    child: const LinearProgressIndicator(color: Colors.green),
                   ));
                 }
                 double totalOrder = 0.0;
@@ -100,17 +100,17 @@ class _EarningPageState extends State<EarningPage> {
                     children: [
                       Container(
                         height: 150,
-                        padding: EdgeInsets.symmetric(vertical: 10),
+                        padding: const EdgeInsets.symmetric(vertical: 10),
                         width: MediaQuery.of(context).size.width * 0.7,
                         decoration: BoxDecoration(
-                          color: Colors.yellow.shade800,
+                          color: Colors.pink.shade800,
                           borderRadius: BorderRadius.circular(30),
                         ),
                         child: Column(
                           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                           children: [
                             Padding(
-                              padding: EdgeInsets.all(12),
+                              padding: const EdgeInsets.all(12),
                               child: Text(
                                 'Total Earnings',
                                 style: styles(
@@ -120,12 +120,12 @@ class _EarningPageState extends State<EarningPage> {
                               ),
                             ),
                             Padding(
-                              padding: EdgeInsets.all(12),
+                              padding: const EdgeInsets.all(12),
                               child: Text(
                                 '฿ ${totalOrder.toStringAsFixed(2)}',
                                 style: styles(
                                   fontSize: 24,
-                                  color: Colors.deepOrange,
+                                  color: Colors.white,
                                 ),
                               ),
                             )
@@ -134,7 +134,7 @@ class _EarningPageState extends State<EarningPage> {
                       ),
                       Container(
                         height: 150,
-                        padding: EdgeInsets.symmetric(vertical: 20),
+                        padding: const EdgeInsets.symmetric(vertical: 15),
                         width: MediaQuery.of(context).size.width * 0.7,
                         decoration: BoxDecoration(
                           color: Colors.blue.shade800,
@@ -144,7 +144,7 @@ class _EarningPageState extends State<EarningPage> {
                           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                           children: [
                             Padding(
-                              padding: EdgeInsets.all(12),
+                              padding: const EdgeInsets.all(12),
                               child: Text(
                                 'Total Orders',
                                 style: styles(
@@ -154,7 +154,7 @@ class _EarningPageState extends State<EarningPage> {
                               ),
                             ),
                             Padding(
-                              padding: EdgeInsets.all(12),
+                              padding: const EdgeInsets.all(12),
                               child: Text(
                                 snapshot.data!.docs.length.toString(),
                                 style: styles(
@@ -177,7 +177,7 @@ class _EarningPageState extends State<EarningPage> {
         return Center(
             child: SizedBox(
           width: MediaQuery.of(context).size.width * 0.5,
-          child: LinearProgressIndicator(color: Colors.green),
+          child: const LinearProgressIndicator(color: Colors.green),
         ));
       },
     );

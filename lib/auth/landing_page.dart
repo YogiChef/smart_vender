@@ -2,12 +2,10 @@
 
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
-import 'package:google_fonts/google_fonts.dart';
-import 'package:smart_vendor/vendors/registor.dart';
-
-import '../global_service/global_sevice.dart';
-import '../models/vender_model.dart';
-import '../pages/main_vendor.dart';
+import 'package:smart_vendor/auth/vendor_registor_page.dart';
+import 'package:smart_vendor/models/vendor_model.dart';
+import 'package:smart_vendor/pages/main_vendor_page.dart';
+import 'package:smart_vendor/services/sevice.dart';
 
 class LandingPage extends StatefulWidget {
   const LandingPage({super.key});
@@ -34,12 +32,12 @@ class _LandingPageState extends State<LandingPage> {
           return const Text("Loading");
         }
         if (!snapshot.data!.exists) {
-          return const RegisterPage();
+          return const VendorRegistorPage();
         }
-        VenderModel vendorsModel =
-            VenderModel.fromJson(snapshot.data!.data() as Map<String, dynamic>);
+        VendorModel vendorsModel =
+            VendorModel.fromJson(snapshot.data!.data() as Map<String, dynamic>);
         return vendorsModel.approved == true
-            ? const MainVendorPage()
+            ? const  MainVendorPage()
             : Center(
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.center,
@@ -58,8 +56,7 @@ class _LandingPageState extends State<LandingPage> {
                     ),
                     Text(
                       vendorsModel.bussinessName.toString(),
-                      style: GoogleFonts.righteous(
-                          fontSize: 20, fontWeight: FontWeight.w500),
+                      style: styles(fontSize: 20, fontWeight: FontWeight.w500),
                     ),
                     const SizedBox(
                       height: 15,
@@ -67,7 +64,7 @@ class _LandingPageState extends State<LandingPage> {
                     Text(
                       'Your application has been\n sent to shop admin.\n Admin will get back to you soon',
                       textAlign: TextAlign.center,
-                      style: GoogleFonts.righteous(
+                      style: styles(
                           fontSize: 16,
                           fontWeight: FontWeight.w500,
                           color: Colors.red.shade200),
@@ -77,12 +74,11 @@ class _LandingPageState extends State<LandingPage> {
                     ),
                     TextButton(
                         onPressed: () async {
-                         await auth.signOut();
-                          
+                          await auth.signOut();
                         },
                         child: Text(
                           'Sign Out',
-                          style: GoogleFonts.righteous(
+                          style: styles(
                             fontSize: 16,
                             fontWeight: FontWeight.w500,
                             color: Colors.cyan.shade400,

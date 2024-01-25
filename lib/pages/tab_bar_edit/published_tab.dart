@@ -1,9 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_slidable/flutter_slidable.dart';
-import 'package:google_fonts/google_fonts.dart';
-import 'package:smart_vendor/edit_product_tab/vendor_product_detail.dart';
-import 'package:smart_vendor/global_service/global_sevice.dart';
+import 'package:smart_vendor/services/sevice.dart';
 
 
 class PublishedTab extends StatelessWidget {
@@ -11,6 +9,7 @@ class PublishedTab extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    // ignore: no_leading_underscores_for_local_identifiers
     final Stream<QuerySnapshot> _productStream = FirebaseFirestore.instance
         .collection('products')
         .where('vendorId', isEqualTo: auth.currentUser!.uid)
@@ -21,7 +20,7 @@ class PublishedTab extends StatelessWidget {
         stream: _productStream,
         builder: (BuildContext context, AsyncSnapshot<QuerySnapshot> snapshot) {
           if (snapshot.hasError) {
-            return Text('Something went wrong');
+            return const Text('Something went wrong');
           }
 
           if (snapshot.connectionState == ConnectionState.waiting) {
@@ -48,20 +47,21 @@ class PublishedTab extends StatelessWidget {
               itemBuilder: ((context, index) {
                 final venderProductData = snapshot.data!.docs[index];
                 return Slidable(
+                    // ignore: sort_child_properties_last
                     child: InkWell(
                       onTap: () {
-                        Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                                builder: (context) => VendorProductDetail(
-                                    productData: venderProductData)));
+                        // Navigator.push(
+                        //     context,
+                        //     MaterialPageRoute(
+                        //         builder: (context) => VendorProductDetail(
+                        //             productData: venderProductData)));
                       },
                       child: Padding(
                         padding: const EdgeInsets.symmetric(
                             horizontal: 12, vertical: 6),
                         child: Row(
                           children: [
-                            Container(
+                            SizedBox(
                               height: 60,
                               width: 80,
                               child: Image.network(
@@ -77,13 +77,12 @@ class PublishedTab extends StatelessWidget {
                                 children: [
                                   Text(
                                     venderProductData['proName'],
-                                    style: GoogleFonts.righteous(
-                                        fontSize: 16, letterSpacing: 1),
+                                    style: styles(
+                                        ),
                                   ),
                                   Text(
                                     '฿${venderProductData['price'].toString()}',
-                                    style: GoogleFonts.righteous(
-                                        fontSize: 16, letterSpacing: 1),
+                                    style: styles(),
                                   )
                                 ],
                               ),
@@ -105,7 +104,7 @@ class PublishedTab extends StatelessWidget {
                                 .doc(venderProductData['proId'])
                                 .delete();
                           },
-                          backgroundColor: Color(0xFFFE4A49),
+                          backgroundColor: const Color(0xFFFE4A49),
                           foregroundColor: Colors.white,
                           icon: Icons.delete,
                           label: 'Delete',
@@ -118,7 +117,7 @@ class PublishedTab extends StatelessWidget {
                                 .doc(venderProductData['proId'])
                                 .update({'approved': false});
                           },
-                          backgroundColor: Color(0xFF21B7CA),
+                          backgroundColor: const Color(0xFF21B7CA),
                           foregroundColor: Colors.white,
                           icon: Icons.approval_outlined,
                           label: 'Unpublish',

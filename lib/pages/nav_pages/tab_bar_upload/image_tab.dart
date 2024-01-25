@@ -5,22 +5,22 @@ import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:provider/provider.dart';
+import 'package:smart_vendor/providers/product_provider.dart';
+import 'package:smart_vendor/services/sevice.dart';
 import 'package:uuid/uuid.dart';
 
-import '../../global_service/global_sevice.dart';
-import '../../providers/product_provider.dart';
-
-class ImagesPage extends StatefulWidget {
-  const ImagesPage({super.key});
+class ImagesTab extends StatefulWidget {
+  const ImagesTab({super.key});
 
   @override
-  State<ImagesPage> createState() => _ImagesPageState();
+  State<ImagesTab> createState() => _ImagesTabState();
 }
 
-class _ImagesPageState extends State<ImagesPage>
+class _ImagesTabState extends State<ImagesTab>
     with AutomaticKeepAliveClientMixin {
   @override
   bool get wantKeepAlive => true;
@@ -33,7 +33,7 @@ class _ImagesPageState extends State<ImagesPage>
     final pickedFile = await picker.pickImage(source: ImageSource.gallery);
 
     if (pickedFile == null) {
-      print('No image picked');
+      Fluttertoast.showToast(msg: 'No image picked');
     } else {
       setState(() {
         _image.add(File(pickedFile.path));
@@ -45,7 +45,7 @@ class _ImagesPageState extends State<ImagesPage>
     final pickedFile = await picker.pickImage(source: ImageSource.camera);
 
     if (pickedFile == null) {
-      print('No image picked');
+     Fluttertoast.showToast(msg: 'No image picked');
     } else {
       setState(() {
         _image.add(File(pickedFile.path));
@@ -80,7 +80,7 @@ class _ImagesPageState extends State<ImagesPage>
                               onPressed: () {
                                 chooseOption(context);
                               },
-                              icon: Icon(
+                              icon: const Icon(
                                   CupertinoIcons.photo_fill_on_rectangle_fill,
                                   size: 34,
                                   color: Colors.grey),

@@ -1,8 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:smart_vendor/services/sevice.dart';
 import 'package:smart_vendor/widgets/input_textfield.dart';
 import 'package:uuid/uuid.dart';
-
-import '../global_service/global_sevice.dart';
 
 class WithdrawalPage extends StatefulWidget {
   const WithdrawalPage({super.key});
@@ -26,10 +25,19 @@ class _WithdrawalPageState extends State<WithdrawalPage> {
           backgroundColor: Colors.yellow.shade900,
           centerTitle: true,
           elevation: 0,
+          leading: IconButton(
+              onPressed: () {
+                Navigator.pop(context);
+              },
+              icon: Icon(
+                Icons.arrow_back_ios,
+                color: Colors.white,
+              )),
           title: Text(
             'Withdraw',
             style: styles(
               fontSize: 18,
+              color: Colors.white,
             ),
           )),
       body: Padding(

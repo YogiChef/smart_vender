@@ -4,8 +4,7 @@ import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/foundation.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:image_picker/image_picker.dart';
-
-import '../global_service/global_sevice.dart';
+import 'package:smart_vendor/services/sevice.dart';
 
 class VendorController {
   uploadImagToStorage(Uint8List image) async {
@@ -17,19 +16,33 @@ class VendorController {
     return downloadUrl;
   }
 
+  coverImageToStorage(Uint8List coverimage) async {
+    Reference ref =
+        storage.ref().child('coverPick').child(auth.currentUser!.uid);
+    UploadTask uploadTask = ref.putData(coverimage);
+    TaskSnapshot snapshot = await uploadTask;
+    String downloadUrl = await snapshot.ref.getDownloadURL();
+    return downloadUrl;
+  }
+
   Future<String> saveVendor(
-      String name,
-      String email,
-      String phone,
-      String countryValue,
-      String stateValue,
-      String cityValue,
-      String taxStatus,
-      String taxNumber,
-      Uint8List? image) async {
+    String name,
+    String email,
+    String phone,
+    String countryValue,
+    String stateValue,
+    String cityValue,
+    String taxStatus,
+    String taxNumber,
+    Uint8List? image,
+    coverImg,
+  ) async {
     String res = 'some error occured';
     try {
-      String storeImage = await uploadImagToStorage(image!);
+      String storeImage = await uploadImagToStorage(
+        image!,
+      );
+      String coverImage = await coverImageToStorage(coverImg);
       await firestore.collection('vendors').doc(auth.currentUser!.uid).set({
         'vendorId': auth.currentUser!.uid,
         'bussinessName': name,
@@ -39,10 +52,10 @@ class VendorController {
         'state': stateValue,
         'city': cityValue,
         'taxStatus': taxStatus,
-        'taxNo': taxNumber,
+        'taxNo': taxNumber ,
         'image': storeImage,
+        'coverImage': coverImage,
         'approved': false,
-        
       });
     } catch (e) {
       Fluttertoast.showToast(msg: e.toString());
